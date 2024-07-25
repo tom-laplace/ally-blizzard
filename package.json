@@ -1,6 +1,6 @@
 {
-  "name": "ally-custom-service",
-  "description": "Starter kit to create an Ally driver for an OAuth2 service",
+  "name": "ally-blizzard",
+  "description": "Ally driver for Blizzard / Battle.net API.",
   "version": "0.0.0",
   "main": "index.js",
   "type": "module",
@@ -30,7 +30,7 @@
     "@adonisjs/ally": "^5.0.0-7",
     "@adonisjs/core": "^6.1.5-32"
   },
-  "author": "",
+  "author": "Laplace Tom",
   "license": "MIT",
   "keywords": [
     "social-auth",

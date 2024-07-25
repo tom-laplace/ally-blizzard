@@ -10,7 +10,7 @@
 
 /**
 |--------------------------------------------------------------------------
- *  Search keyword "YourDriver" and replace it with a meaningful name
+ *  Search keyword "BlizzardDriver" and replace it with a meaningful name
 |--------------------------------------------------------------------------
  */
 
@@ -24,7 +24,7 @@ import type { AllyDriverContract, AllyUserContract, ApiRequestContract } from '@
  * token must have "token" and "type" properties and you may
  * define additional properties (if needed)
  */
-export type YourDriverAccessToken = {
+export type BlizzardDriverAccessToken = {
   token: string
   type: 'bearer'
 }
@@ -32,12 +32,16 @@ export type YourDriverAccessToken = {
 /**
  * Scopes accepted by the driver implementation.
  */
-export type YourDriverScopes = string
+export type BlizzardDriverScopes =
+  | 'wow.profile'
+  | 'sc2.profile'
+  | 'd3.profile'
+  | 'openid'
 
 /**
  * The configuration accepted by the driver implementation.
  */
-export type YourDriverConfig = {
+export type BlizzardDriverConfig = {
   clientId: string
   clientSecret: string
   callbackUrl: string
@@ -50,31 +54,30 @@ export type YourDriverConfig = {
  * Driver implementation. It is mostly configuration driven except the API call
  * to get user info.
  */
-export class YourDriver
-  extends Oauth2Driver<YourDriverAccessToken, YourDriverScopes>
-  implements AllyDriverContract<YourDriverAccessToken, YourDriverScopes>
-{
+export class BlizzardDriver
+  extends Oauth2Driver<BlizzardDriverAccessToken, BlizzardDriverScopes>
+  implements AllyDriverContract<BlizzardDriverAccessToken, BlizzardDriverScopes> {
   /**
    * The URL for the redirect request. The user will be redirected on this page
    * to authorize the request.
    *
    * Do not define query strings in this URL.
    */
-  protected authorizeUrl = ''
+  protected authorizeUrl = 'https://oauth.battle.net/authorize'
 
   /**
    * The URL to hit to exchange the authorization code for the access token
    *
    * Do not define query strings in this URL.
    */
-  protected accessTokenUrl = ''
+  protected accessTokenUrl = 'https://oauth.battle.net/token'
 
   /**
    * The URL to hit to get the user details
    *
    * Do not define query strings in this URL.
    */
-  protected userInfoUrl = ''
+  protected userInfoUrl = 'https://oauth.battle.net/oauth/userinfo'
 
   /**
    * The param name for the authorization code. Read the documentation of your oauth
@@ -95,7 +98,7 @@ export class YourDriver
    * approach is to prefix the oauth provider name to `oauth_state` value. For example:
    * For example: "facebook_oauth_state"
    */
-  protected stateCookieName = 'YourDriver_oauth_state'
+  protected stateCookieName = 'blizzard_oauth_state'
 
   /**
    * Parameter name to be used for sending and receiving the state from.
@@ -117,7 +120,7 @@ export class YourDriver
 
   constructor(
     ctx: HttpContext,
-    public config: YourDriverConfig
+    public config: BlizzardDriverConfig
   ) {
     super(ctx, config)
 
@@ -135,7 +138,7 @@ export class YourDriver
    * is made by the base implementation of "Oauth2" driver and this is a
    * hook to pre-configure the request.
    */
-  // protected configureRedirectRequest(request: RedirectRequest<YourDriverScopes>) {}
+  // protected configureRedirectRequest(request: RedirectRequest<BlizzardDriverScopes>) {}
 
   /**
    * Optionally configure the access token request. The actual request is made by
@@ -161,7 +164,7 @@ export class YourDriver
    */
   async user(
     callback?: (request: ApiRequestContract) => void
-  ): Promise<AllyUserContract<YourDriverAccessToken>> {
+  ): Promise<AllyUserContract<BlizzardDriverAccessToken>> {
     const accessToken = await this.accessToken()
     const request = this.httpClient(this.config.userInfoUrl || this.userInfoUrl)
 
@@ -202,6 +205,6 @@ export class YourDriver
  * The factory function to reference the driver implementation
  * inside the "config/ally.ts" file.
  */
-export function YourDriverService(config: YourDriverConfig): (ctx: HttpContext) => YourDriver {
-  return (ctx) => new YourDriver(ctx, config)
+export function BlizzardDriverService(config: BlizzardDriverConfig): (ctx: HttpContext) => BlizzardDriver {
+  return (ctx) => new BlizzardDriver(ctx, config)
 }
