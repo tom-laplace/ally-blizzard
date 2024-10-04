@@ -63,7 +63,7 @@ export class BlizzardDriver
     this.loadState()
   }
 
-  protected configureRedirectRequest(request: RedirectRequest<BlizzardDriverScopes>){
+  protected configureRedirectRequest(request: RedirectRequest<BlizzardDriverScopes>) {
     request.scopes(this.config.scopes || ['wow.profile'])
 
     request.param('response_type', 'code')
@@ -106,7 +106,7 @@ export class BlizzardDriver
   }
 
   protected getAuthenticatedRequest(token: string) {
-    const request = this.httpClient(this.config.userInfoUrl || this.userInfoUrl)
+    const request = this.httpClient(this.config.userInfoUrl ?? this.userInfoUrl)
 
     request.header('Authorization', `Bearer ${token}`)
     request.header('Accept', 'application/json')
