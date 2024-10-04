@@ -41,4 +41,5 @@ The Blizzard driver exposes the following scopes :
 - `openid`
 
 You can configure the scopes by setting the `scopes` property inside the configuration file `config/ally.ts`.
-The default scope is `openid`
+The default scope is `openid`.
+More infos can be found in the [official documentation](https://develop.battle.net/documentation/guides/using-oauth).

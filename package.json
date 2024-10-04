@@ -1,20 +1,20 @@
 {
   "name": "ally-blizzard",
   "description": "Ally driver for Blizzard / Battle.net API.",
-  "version": "0.0.3",
-  "main": "index.js",
+  "version": "0.1.5",
+  "main": "build/index.js",
   "type": "module",
   "files": [
-    "build/index.js",
-    "build/index.d.ts",
-    "build/src"
+    "build"
   ],
+
   "scripts": {
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "pretest": "npm run lint",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@adonisjs/ally": "^5.0.0-7",
@@ -40,5 +40,6 @@
   "eslintConfig": {
     "extends": "@adonisjs/eslint-config/package"
   },
+
   "prettier": "@adonisjs/prettier-config"
 }
