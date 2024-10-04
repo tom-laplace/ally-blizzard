@@ -1,17 +1,17 @@
-`@tomlap/ally-twitch` is a Blizzard/Battle.net driver for [AdonisJS Ally](https://docs.adonisjs.com/guides/social-auth).
+`ally-blizzard` is a Blizzard/Battle.net driver for [AdonisJS Ally](https://docs.adonisjs.com/guides/social-auth).
 
 ## Getting Started
 
 This package is available in the npm registry.
 
 ```bash
-npm install --save @tomlap/ally-blizzard
+npm install --save ally-blizzard
 ```
 
 Next, configure the package by running the following command.
 
 ```bash
-node ace configure @tomlap/ally-blizzard
+node ace configure ally-blizzard
 ```
 
 Then register the service inside the configuration file `config/ally.ts`.
@@ -19,7 +19,7 @@ Then register the service inside the configuration file `config/ally.ts`.
 ```ts
 // config/ally.ts
 import { defineConfig } from '@adonisjs/ally'
-import { blizzard } from '@tomlap/ally-blizzard'
+import { blizzard } from 'ally-blizzard'
 import env from '#start/env'
 
 const allyConfig = defineConfig({

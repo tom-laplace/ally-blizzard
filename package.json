@@ -1,7 +1,7 @@
 {
   "name": "ally-blizzard",
   "description": "Ally driver for Blizzard / Battle.net API.",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "main": "index.js",
   "type": "module",
   "files": [
