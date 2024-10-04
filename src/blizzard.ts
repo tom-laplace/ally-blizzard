@@ -1,19 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| Ally Oauth driver
-|--------------------------------------------------------------------------
-|
-| Make sure you through the code and comments properly and make necessary
-| changes as per the requirements of your implementation.
-|
-*/
-
-/**
-|--------------------------------------------------------------------------
- *  Search keyword "BlizzardDriver" and replace it with a meaningful name
-|--------------------------------------------------------------------------
- */
-
 import { Oauth2Driver, RedirectRequest } from '@adonisjs/ally'
 import type { HttpContext } from '@adonisjs/core/http'
 import type {
@@ -64,15 +48,10 @@ export class BlizzardDriver
   }
 
   protected configureRedirectRequest(request: RedirectRequest<BlizzardDriverScopes>) {
-    request.scopes(this.config.scopes || ['wow.profile'])
-
+    request.scopes(this.config.scopes || ['openid'])
     request.param('response_type', 'code')
     request.param('grant_type', 'authorization_code')
   }
-
-  // protected configureRedirectRequest(request: RedirectRequest<BlizzardDriverScopes>) {}
-
-  // protected configureAccessTokenRequest(request: ApiRequest) {}
 
   accessDenied() {
     return this.ctx.request.input('error') === 'user_denied'
@@ -124,17 +103,17 @@ export class BlizzardDriver
     }
 
     const body = await request.get()
+    const user = body.data[0]
 
-    return body
+    return {
+      id: user.id,
+      nickName: 'unsupported' as const,
+      email: 'unsupported' as const,
+      emailVerificationState: 'unsupported' as const,
+      name: 'unsupported' as const,
+      avatarUrl: 'unsupported' as const,
+      battleTag: user.battleTag,
+      original: user,
+    }
   }
-}
-
-/**
- * The factory function to reference the driver implementation
- * inside the "config/ally.ts" file.
- */
-export function BlizzardDriverService(
-  config: BlizzardDriverConfig
-): (ctx: HttpContext) => BlizzardDriver {
-  return (ctx) => new BlizzardDriver(ctx, config)
 }
