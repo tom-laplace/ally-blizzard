@@ -102,17 +102,16 @@ export class BlizzardDriver
       callback(request)
     }
 
-    const body = await request.get()
-    const user = body.data[0]
+    const user = await request.get()
 
     return {
       id: user.id,
+      battletag: user.battletag,
       nickName: 'unsupported' as const,
       email: 'unsupported' as const,
       emailVerificationState: 'unsupported' as const,
       name: 'unsupported' as const,
       avatarUrl: 'unsupported' as const,
-      battleTag: user.battleTag,
       original: user,
     }
   }
